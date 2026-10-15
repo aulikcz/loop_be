@@ -20,4 +20,9 @@ public class HelloController {
                 .map(HelloEntity::getMessage).orElse("Prázdno");
         return Map.of("message", msg);
     }
+
+    @GetMapping("/ping")
+    public Map<String, String> ping() {
+        return Map.of("status", "ok");
+    }
 }

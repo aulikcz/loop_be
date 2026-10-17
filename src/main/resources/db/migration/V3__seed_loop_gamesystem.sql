@@ -1,0 +1,1 @@
+INSERT INTO game_system (code, name) VALUES ('loop', 'Tales from the Loop');

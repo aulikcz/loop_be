@@ -1,0 +1,1 @@
+INSERT INTO app_user (auth_provider, provider_user_id, display_name, email) VALUES ('local', 'test', 'TEST', 'test@test.com');

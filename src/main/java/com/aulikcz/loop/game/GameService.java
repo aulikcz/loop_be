@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.aulikcz.loop.user.AuthProviders.LOCAL;
+
 @Service
 public class GameService {
     private final GameRepository gameRepository;
@@ -56,6 +58,6 @@ public class GameService {
     }
 
     private AppUserEntity getCurrentUser(){
-        return appUserRepository.findByAuthProviderAndProviderUserId("local", "test").orElseThrow();
+        return appUserRepository.findByAuthProviderAndProviderUserId(LOCAL, "test").orElseThrow();
     }
 }

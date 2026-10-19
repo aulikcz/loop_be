@@ -11,15 +11,7 @@ import java.util.Map;
 @RequestMapping("/api")
 @Slf4j
 public class HelloController {
-    private final HelloRepository repo;
-    public HelloController(HelloRepository repo) { this.repo = repo; }
-
-    @GetMapping("/hello")
-    public Map<String, String> hello() {
-        String msg = repo.findAll().stream().findFirst()
-                .map(HelloEntity::getMessage).orElse("Prázdno");
-        return Map.of("message", msg);
-    }
+    public HelloController() {}
 
     @GetMapping("/ping")
     public Map<String, String> ping() {

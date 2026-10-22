@@ -2,13 +2,14 @@ package com.aulikcz.loop.auth;
 
 import com.aulikcz.loop.common.BadLogin;
 import com.aulikcz.loop.common.ConflictException;
+import com.aulikcz.loop.common.InvalidResetTokenException;
 import com.aulikcz.loop.user.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Locale;
-
+import static com.aulikcz.loop.common.AuthUtils.normalizeEmail;
+import static com.aulikcz.loop.common.AuthUtils.sha256Hex;
 import static com.aulikcz.loop.user.AuthProviders.LOCAL;
 
 @Service
@@ -58,6 +59,12 @@ public class AuthService {
         return tokenService.creatAccessToken(validToken.getAppUser());
     }
 
+    public void logout(String raw){
+        if(raw != null) {
+            refreshTokenService.revoke(raw);
+        }
+    }
+
     public AuthTokens login(LoginRequest login){
         String normalizedEmail = normalizeEmail(login.email());
         AppUserEntity user = appUserRepository.findByAuthProviderAndProviderUserId(LOCAL, normalizedEmail).orElseThrow(() -> new BadLogin("Invalid credentials”"));
@@ -68,9 +75,5 @@ public class AuthService {
         String accessToken = tokenService.creatAccessToken(user);
         String refreshToken = refreshTokenService.create(user);
         return new AuthTokens(accessToken, refreshToken);
-    }
-
-    private String normalizeEmail(String email){
-        return email.trim().toLowerCase(Locale.ROOT);
     }
 }

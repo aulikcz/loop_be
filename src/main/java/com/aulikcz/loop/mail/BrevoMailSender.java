@@ -30,7 +30,7 @@ public class BrevoMailSender implements MailSender {
     @Override
     public void sendPasswordReset(String to, String url) {
         Map<String, Object> body = Map.of(
-                "sender", Map.of("name", "Loop", "email", from),
+                "sender", Map.of("name", "Grimoár", "email", from),
                 "to", List.of(Map.of("email", to)),
                 "subject", "Nastavení nového hesla",
                 "htmlContent", "<p>Pro nastavení nového hesla klikni na odkaz (platí 30 minut):</p>"

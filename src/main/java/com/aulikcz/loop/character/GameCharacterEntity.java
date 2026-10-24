@@ -1,6 +1,7 @@
 package com.aulikcz.loop.character;
 
 
+import com.aulikcz.loop.game.MembershipEntity;
 import com.aulikcz.loop.gamesystem.GameSystemEntity;
 import com.aulikcz.loop.user.AppUserEntity;
 import jakarta.persistence.*;
@@ -35,8 +36,9 @@ public class GameCharacterEntity {
     @JoinColumn(name = "game_system_id")
     private GameSystemEntity gameSystem;
 
-    @Column(name = "membership_id")
-    private Long membershipId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "membership_id")
+    private MembershipEntity membership;
 
     private Integer templateVersion;
 

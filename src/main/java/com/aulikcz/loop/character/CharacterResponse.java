@@ -7,5 +7,7 @@ public record CharacterResponse(
         String name,
         String systemCode,
         Integer templateVersion,
-        Map<String, Object> sheet
+        Map<String, Object> sheet,
+        Long gameId,
+        String gameName
 ) {}

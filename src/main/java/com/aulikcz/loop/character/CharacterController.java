@@ -1,6 +1,7 @@
 package com.aulikcz.loop.character;
 
 import com.aulikcz.loop.common.BadLogin;
+import com.aulikcz.loop.game.JoinGameRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -45,5 +46,17 @@ public class CharacterController {
                                     @Valid @RequestBody UpdateCharacterRequest req) {
         Long userId = Long.valueOf(jwt.getSubject());
         return characterService.update(userId, id, req);
+    }
+
+    @PostMapping("/{id}/join")
+    public CharacterResponse join(@AuthenticationPrincipal Jwt jwt, @PathVariable Long id,
+                                  @Valid @RequestBody JoinGameRequest req) {
+        Long userId = Long.valueOf(jwt.getSubject());
+        return characterService.join(userId, id, req.code());
+    }
+
+    @PostMapping("/{id}/leave")
+    public CharacterResponse leave(@AuthenticationPrincipal Jwt jwt, @PathVariable Long id) {
+        return characterService.leave(Long.valueOf(jwt.getSubject()), id);
     }
 }
